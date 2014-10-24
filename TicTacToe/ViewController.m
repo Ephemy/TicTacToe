@@ -85,6 +85,19 @@
         return NO;
 }
 
+- (BOOL)checkOneFourSeven{
+    if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
+        return YES;}
+    else
+        return NO;
+}
+
+- (BOOL)checkOneFiveNine{
+    if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
+        return YES;}
+    else
+        return NO;}
+
 - (BOOL)checkFourFiveSix{
     if([self.labelFour.text isEqualToString:self.labelFive.text] && [self.labelFour.text isEqualToString:self.labelSix.text]){
         return YES;}
@@ -99,12 +112,7 @@
 
 }
 
-- (BOOL)checkOneFourSeven{
-    if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
-        return YES;}
-    else
-        return NO;
-}
+
 
 - (BOOL)checkTwoFiveEight{
     if([self.labelTwo.text isEqualToString:self.labelFive.text] && [self.labelTwo.text isEqualToString:self.labelEight.text]){
@@ -119,11 +127,7 @@
         return NO;
 }
 
-- (BOOL)checkOneFiveNine{
-    if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
-        return YES;}
-    else
-        return NO;}
+
 
 - (BOOL)checkThreeFiveSeven{
     if([self.labelThree.text isEqualToString:self.labelFive.text] && [self.labelThree.text isEqualToString:self.labelSeven.text]){
@@ -134,41 +138,65 @@
 
 
 - (BOOL)hasPlayerWon:(UILabel *)labelPressed{
-    
+        
     
     //123 456 789 147 258 369 159 357
     
     //123 147 159 #1
     //123
-    if(labelPressed == self.labelOne || labelPressed == self.labelTwo || labelPressed == self.labelThree){
-        return [self checkOneTwoThree];}
+    if(labelPressed == self.labelOne){
+        return ([self checkOneTwoThree] || [self checkOneFourSeven] || [self checkOneFiveNine]);}
+    else if(labelPressed == self.labelTwo){
+        return ([self checkTwoFiveEight] || [self checkOneTwoThree]);}
+    else if(labelPressed == self.labelThree){
+        return ([self checkThreeFiveSeven] || [self checkThreeSixNine] || [self checkOneTwoThree]);}
+    else if(labelPressed == self.labelFour){
+        return ([self checkFourFiveSix] || [self checkOneFourSeven]);}
+    else if(labelPressed == self.labelFive){
+        return ([self checkFourFiveSix] || [self checkOneFiveNine] || [self checkTwoFiveEight] || [self checkThreeFiveSeven]);
+    }
+    else if(labelPressed == self.labelSix){
+        return ([self checkThreeSixNine] || [self checkFourFiveSix]);}
+    else if(labelPressed == self.labelSeven){
+        return ([self checkOneFourSeven] || [self checkThreeFiveSeven] || [self checkSevenEightNine]);}
+    else if(labelPressed == self.labelEight){
+        return([self checkTwoFiveEight] || [self checkSevenEightNine]);}
+    else if(labelPressed == self.labelNine){
+        return([self checkOneFiveNine] || [self checkThreeSixNine] || [self checkSevenEightNine]);}
+    else
+        return NO;
+//
+//    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
+//        return [self checkFourFiveSix];}
+//
+//    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
+//        return [self checkSevenEightNine];}
+//    
+//    else if (labelPressed == self.labelOne || labelPressed == self.labelFour || labelPressed == self.labelSeven){
+//        return [self checkOneFourSeven];}
+//    
+//    else if (labelPressed == self.labelTwo || labelPressed == self.labelFive || labelPressed == self.labelEight){
+//        return [self checkTwoFiveEight];}
+//    
+//    else if (labelPressed == self.labelThree || labelPressed == self.labelSix || labelPressed == self.labelNine){
+//        return [self checkThreeSixNine];}
+//    
+//    else if (labelPressed == self.labelOne || labelPressed == self.labelFive || labelPressed == self.labelNine){
+//        return [self checkOneFiveNine];}
+//    
+//    else if (labelPressed == self.labelThree || labelPressed == self.labelFive || labelPressed == self.labelSeven){
+//        return [self checkThreeFiveSeven];}
+    
+    
+    
+    
 
-    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
-        return [self checkFourFiveSix];}
-
-    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
-        return [self checkSevenEightNine];}
-    
-    else if (labelPressed == self.labelOne || labelPressed == self.labelFour || labelPressed == self.labelSeven){
-        return [self checkOneFourSeven];}
-    
-    else if (labelPressed == self.labelTwo || labelPressed == self.labelFive || labelPressed == self.labelEight){
-        return [self checkTwoFiveEight];}
-    
-    else if (labelPressed == self.labelThree || labelPressed == self.labelSix || labelPressed == self.labelNine){
-        return [self checkThreeSixNine];}
-    
-    else if (labelPressed == self.labelOne || labelPressed == self.labelFive || labelPressed == self.labelNine){
-        return [self checkOneFiveNine];}
-    
-    else if (labelPressed == self.labelThree || labelPressed == self.labelFive || labelPressed == self.labelSeven){
-        return [self checkThreeFiveSeven];}
 //        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
 //            return YES;}
 //        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
 //            return YES;}
-    else{
-        return NO;}
+//    else{
+//        return NO;}
 }
 
 - (IBAction)onLabelTapped:(id)sender {
