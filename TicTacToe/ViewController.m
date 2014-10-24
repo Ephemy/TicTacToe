@@ -40,7 +40,19 @@
     self.xLabel.userInteractionEnabled = YES;
     [self.oLabel addGestureRecognizer:oPan];
     self.oLabel.userInteractionEnabled = YES;
+
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                     target:self
+                                   selector:@selector(timerHandler:)
+                                   userInfo:nil
+                                    repeats:NO];
+    if(!timer){
+
+    }
 }
+-(void)
+
+
 
 -(void)xPanHandler:(UIPanGestureRecognizer *)xGesture{
     CGPoint xCenter = [xGesture locationInView:self.view];
