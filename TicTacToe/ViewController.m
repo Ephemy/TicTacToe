@@ -62,6 +62,9 @@
 - (void)countDown{
     self.countdown--;
     self.timerLabel.text = [NSString stringWithFormat:@"%0.1f",self.countdown*.1];
+//    if (self.countdown == 0) {
+//        self.countdown = 10;
+ //   }
 
 }
 //    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
