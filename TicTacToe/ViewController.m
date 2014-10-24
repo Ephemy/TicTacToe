@@ -62,16 +62,48 @@
 //change bool value
     
     //BOOL isPlayerX = YES;
-    //if([self buttonPressed]){
-    if(self.isPlayerX){
-        labelPressed.text = @"X";}
-    else{labelPressed.text = @"O";}
-    self.isPlayerX = !(self.isPlayerX);
-    }
+    if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
+        if(!self.isPlayerX){
+            labelPressed.text = @"X";
+            labelPressed.textColor = [UIColor blueColor];
+            self.whichPlayerLabel.text = @"O";}
+        else{labelPressed.text = @"O";
+            labelPressed.textColor = [UIColor redColor];
+            self.whichPlayerLabel.text = @"X";}
+        self.isPlayerX = !(self.isPlayerX);
+        if( [self hasPlayerWon:labelPressed])
+            self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
+    }//taking turns
+    labelPressed.userInteractionEnabled = YES;//disable label
+    //}
+}
 
+- (BOOL)checkOneTwoThree{
+    if([self.labelOne.text isEqualToString:self.labelTwo.text] && [self.labelOne.text isEqualToString:self.labelThree.text]){
+        return YES;}
+    else
+        return NO;
+}
+
+- (BOOL)hasPlayerWon:(UILabel *)labelPressed{
     
-
-
+    
+    //123 456 780 147 258 369 159 357
+    
+    //123 147 159 #1
+    //123
+    if(labelPressed == self.labelOne){
+        [self checkOneTwoThree];
+        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
+            return YES;}
+        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
+            return YES;}
+    else
+        return NO;
+    }
+    else
+        return NO;
+}
 - (IBAction)onLabelTapped:(id)sender {
     CGPoint point = [sender locationInView:self.view];
     [self findLabelUsingPoint:point];
