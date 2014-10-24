@@ -85,25 +85,44 @@
         return NO;
 }
 
-- (BOOL)hasPlayerWon:(UILabel *)labelPressed{
-    
-    
-    //123 456 780 147 258 369 159 357
-    
-    //123 147 159 #1
-    //123
-    if(labelPressed == self.labelOne){
-        [self checkOneTwoThree];
-        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
-            return YES;}
-        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
-            return YES;}
-    else
-        return NO;
-    }
+- (BOOL)checkFourFiveSix{
+    if([self.labelFour.text isEqualToString:self.labelFive.text] && [self.labelFour.text isEqualToString:self.labelSix.text]){
+        return YES;}
     else
         return NO;
 }
+- (BOOL)checkSevenEightNine {
+    if([self.labelSeven.text isEqualToString:self.labelEight.text] && [self.labelSeven.text isEqualToString:self.labelNine.text]){
+        return YES;}
+    else
+        return NO;
+
+}
+
+
+- (BOOL)hasPlayerWon:(UILabel *)labelPressed{
+    
+    
+    //123 456 789 147 258 369 159 357
+    
+    //123 147 159 #1
+    //123
+    if(labelPressed == self.labelOne || labelPressed == self.labelTwo || labelPressed == self.labelThree){
+        return [self checkOneTwoThree];}
+
+    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
+        return [self checkFourFiveSix];}
+
+    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
+        return [self checkSevenEightNine];}
+//        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
+//            return YES;}
+//        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
+//            return YES;}
+    else{
+        return NO;}
+}
+
 - (IBAction)onLabelTapped:(id)sender {
     CGPoint point = [sender locationInView:self.view];
     [self findLabelUsingPoint:point];
