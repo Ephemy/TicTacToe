@@ -24,6 +24,8 @@
 @property CGPoint originalXCenter;
 @property CGPoint originalOCenter;
 @property (weak, nonatomic) IBOutlet UILabel *oLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
+@property NSTimeInterval totalCountdownInterval;
 
 @end
 
@@ -41,16 +43,46 @@
     [self.oLabel addGestureRecognizer:oPan];
     self.oLabel.userInteractionEnabled = YES;
 
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
                                    selector:@selector(timerHandler:)
                                    userInfo:nil
-                                    repeats:NO];
-    if(!timer){
+                                    repeats:YES];
+        NSTimer* timer1 = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
+    [self checkCountdown:timer1];
+ 
 
-    }
+//    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
+//    self.timerLabel.text = [NSString stringWithFormat:@"%f",timer.timeInterval - elapsedTime];
+//    if(!timer){
+//
+//    }
 }
--(void)
+
+-(void) checkCountdown:(NSTimer*)_timer {
+    
+       NSDate* startDate = [NSDate date];
+    
+    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
+    
+    NSTimeInterval remainingTime = self.totalCountdownInterval - elapsedTime;
+    self.timerLabel.text = [NSString stringWithFormat:@"%f",remainingTime];
+    
+    
+    if (remainingTime <= 0.0) {
+        [_timer invalidate];
+    }
+    
+    /* update the interface by converting remainingTime (which is in seconds)
+     to seconds, minutes, hours */
+    
+}
+
+-(void)timerHandler:(id)sender{
+
+    self.isPlayerO = !self.isPlayerO;
+}
 
 
 
