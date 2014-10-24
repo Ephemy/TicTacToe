@@ -19,7 +19,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelEight;
 @property (weak, nonatomic) IBOutlet UILabel *labelNine;
 @property (weak, nonatomic) IBOutlet UILabel *whichPlayerLabel;
-@property (nonatomic) BOOL isPlayerX;
+@property (nonatomic) BOOL isPlayerO;
+@property (weak, nonatomic) IBOutlet UILabel *xLabel;
+@property CGPoint originalXCenter;
+@property CGPoint originalOCenter;
+@property (weak, nonatomic) IBOutlet UILabel *oLabel;
 
 @end
 
@@ -28,6 +32,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    UIPanGestureRecognizer *xPan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(xPanHandler:)];
+    UIPanGestureRecognizer *oPan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(oPanHandler:)];
+    self.originalXCenter = self.xLabel.center;
+    self.originalOCenter = self.oLabel.center;
+    [self.xLabel addGestureRecognizer:xPan];
+    self.xLabel.userInteractionEnabled = YES;
+    [self.oLabel addGestureRecognizer:oPan];
+    self.oLabel.userInteractionEnabled = YES;
+}
+
+-(void)xPanHandler:(UIPanGestureRecognizer *)xGesture{
+    CGPoint xCenter = [xGesture locationInView:self.view];
+    CGPoint xEndCenter;
+    self.xLabel.center  = xCenter;
+    if(xGesture.state == UIGestureRecognizerStateEnded){
+        xEndCenter = xCenter;
+        self.isPlayerO = NO;
+        self.xLabel.center = self.originalXCenter;}
+    [self findLabelUsingPoint:xEndCenter];}
+
+-(void)oPanHandler:(UIPanGestureRecognizer *)oGesture{
+    CGPoint oCenter = [oGesture locationInView:self.view];
+    CGPoint oEndCenter;
+    self.oLabel.center = oCenter;
+    if(oGesture.state == UIGestureRecognizerStateEnded){
+         oEndCenter = oCenter;
+         self.isPlayerO = YES;
+         self.oLabel.center = self.originalOCenter;}
+    [self findLabelUsingPoint:oEndCenter];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,6 +89,50 @@
         [self labelPressed:self.labelNine];}
 }
 
+- (void)whoWon:(NSString *)loser{//REFACTOR INTO CONSTANTS AND UPDATE AS WINNNER
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CONGRATULATIONS!!!!DINGDINGDING" message: [NSString stringWithFormat:@"%@ IS THE ANTI-SUPREME OVERLORD!! AKA... THE LOSERRRRRRR",loser] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *restartButton = [UIAlertAction actionWithTitle:@"RESTART?" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self resetAllValues];
+    }];
+//    UIAlertAction *hi = [UIAlertAction action]
+    [alert addAction:restartButton];
+    [self presentViewController:alert animated:YES completion:nil];
+
+
+}
+
+- (void)resetAllValues{
+    self.whichPlayerLabel.text = @"Round 2";
+    self.labelOne.text = @"Label";
+    self.labelTwo.text = @"Label";
+    self.labelThree.text = @"Label";
+    self.labelFour.text = @"Label";
+    self.labelFive.text = @"Label";
+    self.labelSix.text = @"Label";
+    self.labelSeven.text = @"Label";
+    self.labelEight.text = @"Label";
+    self.labelNine.text = @"Label";
+    self.labelOne.textColor = [UIColor blackColor];
+    self.labelTwo.textColor = [UIColor blackColor];
+    self.labelThree.textColor = [UIColor blackColor];
+    self.labelFour.textColor = [UIColor blackColor];
+    self.labelFive.textColor = [UIColor blackColor];
+    self.labelSix.textColor = [UIColor blackColor];
+    self.labelSeven.textColor = [UIColor blackColor];
+    self.labelEight.textColor = [UIColor blackColor];
+    self.labelNine.textColor = [UIColor blackColor];
+    self.labelOne.userInteractionEnabled = NO;
+    self.labelTwo.userInteractionEnabled = NO;
+    self.labelThree.userInteractionEnabled = NO;
+    self.labelFour.userInteractionEnabled = NO;
+    self.labelFive.userInteractionEnabled = NO;
+    self.labelSix.userInteractionEnabled = NO;
+    self.labelSeven.userInteractionEnabled = NO;
+    self.labelEight.userInteractionEnabled = NO;
+    self.labelNine.userInteractionEnabled = NO;
+
+}
+
 - (void)labelPressed:(UILabel *)labelPressed{
 //if label 1-9 countains cgpoint(mouse) - change to x or o
 //if already x or o do nothing.
@@ -63,16 +140,19 @@
     
     //BOOL isPlayerX = YES;
     if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
-        if(!self.isPlayerX){
+        if(!self.isPlayerO){
             labelPressed.text = @"X";
             labelPressed.textColor = [UIColor blueColor];
             self.whichPlayerLabel.text = @"O";}
         else{labelPressed.text = @"O";
             labelPressed.textColor = [UIColor redColor];
             self.whichPlayerLabel.text = @"X";}
-        self.isPlayerX = !(self.isPlayerX);
-        if( [self hasPlayerWon:labelPressed])
-            self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
+        self.isPlayerO = !(self.isPlayerO);
+        if( [self hasPlayerWon:labelPressed]){
+            NSString *playerWon = self.whichPlayerLabel.text;
+            //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
+            [self whoWon:playerWon];
+        }
     }//taking turns
     labelPressed.userInteractionEnabled = YES;//disable label
     //}
