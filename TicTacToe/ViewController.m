@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *oLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property NSTimeInterval totalCountdownInterval;
+@property int countdown;
+@property int round;
 
 @end
 
@@ -34,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.round = 2;
     UIPanGestureRecognizer *xPan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(xPanHandler:)];
     UIPanGestureRecognizer *oPan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(oPanHandler:)];
     self.originalXCenter = self.xLabel.center;
@@ -44,44 +47,44 @@
     self.oLabel.userInteractionEnabled = YES;
 
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:6.0
                                      target:self
                                    selector:@selector(timerHandler:)
                                    userInfo:nil
                                     repeats:YES];
-        NSTimer* timer1 = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(checkCountdown:) userInfo:nil repeats:YES];
-    [self checkCountdown:timer1];
- 
+    NSTimer *timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
+                                             target:self
+                                           selector:@selector(countDown)
+                                           userInfo:nil
+                                            repeats:YES];
+    self.countdown = 58;
+}
+- (void)countDown{
+    self.countdown--;
+    self.timerLabel.text = [NSString stringWithFormat:@"%0.1f",self.countdown*.1];
 
+}
 //    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
 //    self.timerLabel.text = [NSString stringWithFormat:@"%f",timer.timeInterval - elapsedTime];
 //    if(!timer){
 //
 //    }
-}
 
--(void) checkCountdown:(NSTimer*)_timer {
-    
-       NSDate* startDate = [NSDate date];
-    
-    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
-    
-    NSTimeInterval remainingTime = self.totalCountdownInterval - elapsedTime;
-    self.timerLabel.text = [NSString stringWithFormat:@"%f",remainingTime];
-    
-    
-    if (remainingTime <= 0.0) {
-        [_timer invalidate];
-    }
-    
-    /* update the interface by converting remainingTime (which is in seconds)
-     to seconds, minutes, hours */
-    
-}
 
 -(void)timerHandler:(id)sender{
-
+//@"Your Move Sir: " stringByAppendingString:
     self.isPlayerO = !self.isPlayerO;
+    if(!self.isPlayerO && self.countdown == 0){
+        self.whichPlayerLabel.text = @"Your Move Sir: X";
+    }else if(self.isPlayerO && self.countdown == 0)
+        self.whichPlayerLabel.text = @"Your Move Sir: O";
+    else
+        
+    if(self.whichPlayerLabel)
+    //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString: @"hi"];
+    self.countdown = 58
+    ;
+    
 }
 
 
@@ -146,7 +149,8 @@
 }
 
 - (void)resetAllValues{
-    self.whichPlayerLabel.text = @"Round 2";
+    self.whichPlayerLabel.text = [NSString stringWithFormat:@"Round: %d....Begin!!", self.round];
+    self.round++;
     self.labelOne.text = @"Label";
     self.labelTwo.text = @"Label";
     self.labelThree.text = @"Label";
@@ -184,13 +188,14 @@
     
     //BOOL isPlayerX = YES;
     if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
+        self.countdown = 58;
         if(!self.isPlayerO){
             labelPressed.text = @"X";
             labelPressed.textColor = [UIColor blueColor];
-            self.whichPlayerLabel.text = @"O";}
+            self.whichPlayerLabel.text = @"Your Move Sir: O";}
         else{labelPressed.text = @"O";
             labelPressed.textColor = [UIColor redColor];
-            self.whichPlayerLabel.text = @"X";}
+            self.whichPlayerLabel.text = @"Your Move Sir: X";}
         self.isPlayerO = !(self.isPlayerO);
         if( [self hasPlayerWon:labelPressed]){
             NSString *playerWon = self.whichPlayerLabel.text;

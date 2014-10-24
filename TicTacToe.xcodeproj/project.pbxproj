@@ -14,6 +14,7 @@
 		7B34AB9D19F9C4FC002D756A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B34AB9C19F9C4FC002D756A /* Images.xcassets */; };
 		7B34ABA019F9C4FC002D756A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B34AB9E19F9C4FC002D756A /* LaunchScreen.xib */; };
 		7B34ABAC19F9C4FC002D756A /* TicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B34ABAB19F9C4FC002D756A /* TicTacToeTests.m */; };
+		7B34ABB719FAADD9002D756A /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B34ABB619FAADD9002D756A /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		7B34ABA519F9C4FC002D756A /* TicTacToeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacToeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B34ABAA19F9C4FC002D756A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B34ABAB19F9C4FC002D756A /* TicTacToeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicTacToeTests.m; sourceTree = "<group>"; };
+		7B34ABB519FAADD9002D756A /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		7B34ABB619FAADD9002D756A /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				7B34AB9919F9C4FC002D756A /* Main.storyboard */,
 				7B34AB9C19F9C4FC002D756A /* Images.xcassets */,
 				7B34AB9E19F9C4FC002D756A /* LaunchScreen.xib */,
+				7B34ABB519FAADD9002D756A /* WebViewController.h */,
+				7B34ABB619FAADD9002D756A /* WebViewController.m */,
 				7B34AB8F19F9C4FC002D756A /* Supporting Files */,
 			);
 			path = TicTacToe;
@@ -222,6 +227,7 @@
 				7B34AB9819F9C4FC002D756A /* ViewController.m in Sources */,
 				7B34AB9519F9C4FC002D756A /* AppDelegate.m in Sources */,
 				7B34AB9219F9C4FC002D756A /* main.m in Sources */,
+				7B34ABB719FAADD9002D756A /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
