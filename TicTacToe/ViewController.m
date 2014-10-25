@@ -45,27 +45,28 @@
     self.xLabel.userInteractionEnabled = YES;
     [self.oLabel addGestureRecognizer:oPan];
     self.oLabel.userInteractionEnabled = YES;
-
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:6.0
-                                     target:self
-                                   selector:@selector(timerHandler:)
-                                   userInfo:nil
-                                    repeats:YES];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
+                                                      target:self
+                                                    selector:@selector(timerHandler:)
+                                                    userInfo:nil
+                                                     repeats:YES];
     NSTimer *timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
-                                             target:self
-                                           selector:@selector(countDown)
-                                           userInfo:nil
-                                            repeats:YES];
-    self.countdown = 58;
+                                                               target:self
+                                                             selector:@selector(countDown)
+                                                             userInfo:nil
+                                                              repeats:YES];
+    self.countdown = 200;
 }
+
 - (void)countDown{
     self.countdown--;
     self.timerLabel.text = [NSString stringWithFormat:@"%0.1f",self.countdown*.1];
-//    if (self.countdown == 0) {
-//        self.countdown = 10;
- //   }
-
+    //    if (self.countdown == 0) {
+    //        self.countdown = 10;
+    //   }
+    
 }
 //    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
 //    self.timerLabel.text = [NSString stringWithFormat:@"%f",timer.timeInterval - elapsedTime];
@@ -76,7 +77,7 @@
 //reset the timer
 
 -(void)timerHandler:(id)sender{
-//@"Your Move Sir: " stringByAppendingString:
+    //@"Your Move Sir: " stringByAppendingString:
     self.isPlayerO = !self.isPlayerO;
     if(!self.isPlayerO && self.countdown <= 0){
         self.whichPlayerLabel.text = @"Your Move Sir: X";
@@ -84,10 +85,10 @@
         self.whichPlayerLabel.text = @"Your Move Sir: O";
     else
         
-    if(self.whichPlayerLabel)
-    //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString: @"hi"];
-    self.countdown = 58
-    ;
+        if(self.whichPlayerLabel)
+            //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString: @"hi"];
+            self.countdown = 58
+            ;
     
 }
 
@@ -98,13 +99,21 @@
         return NO;
 }
 -(BOOL)checkOneThree{
-  //check opposite players code only -> X?
-    if([self checkXPresent:self.labelOne.text]  && [self checkXPresent:self.labelThree.text]
+    //check opposite players code only -> X?
+    if([self checkXPresent:self.labelOne]  && [self checkXPresent:self.labelThree]
        && self.labelTwo.userInteractionEnabled == NO)
         return YES;
     else
         return NO;
 }
+
+-(BOOL)checkOneTwo{
+    //check opposite players code only -> X?
+    if([self checkXPresent:self.labelOne]  && [self checkXPresent:self.labelTwo]
+       && self.labelThree.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;}
 //-(BOOL)checkTwoThree{
 //    if([self checkXPresent:self.labelTwo] && [self checkXPresent:self.labelThree])
 //        return YES;
@@ -124,27 +133,149 @@
 -(BOOL)checkOneSeven{
     if([self checkXPresent:self.labelOne] && [self checkXPresent:self.labelSeven] && self.labelFour.userInteractionEnabled == NO)
         return YES;
+    
     else
         return NO;}
 
-//-(void)skyNet{
--(void)skyNet:(UILabel *)labelPressed{
-    self.isPlayerO = YES;
-    if(labelPressed == self.labelSeven){
-        if([self checkOneSeven])
-//            self.labelFour.text = @"O";
-            [self labelPressed:self.labelFour];
-    }
-//    self.isPlayerO = YES;
-//    self.whichPlayerLabel.text = @"WORKS TO HERE";
-//    if(labelPressed == self.labelThree){
-//        if([self checkOneThree])
-//            self.labelTwo.text = @"O";
-            //[self labelPressed:self.labelTwo];
-//        if(self.checkTwoThree){}
-//        if(self.checkThreeEight){}
-//        if(self.checkThreeNine){}
+-(BOOL)checkFourSeven{
+    if([self checkXPresent:self.labelFour] && [self checkXPresent:self.labelSeven] && self.labelOne.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+-(BOOL)checkSevenEight{
+    if([self checkXPresent:self.labelSeven] && [self checkXPresent:self.labelEight] && self.labelNine.userInteractionEnabled ==NO)
+        return YES;
+    else
+        return NO;
+    //-(void)skyNet{
+}
+
+-(BOOL)checkSevenNine{
+    if([self checkXPresent:self.labelSeven] && [self checkXPresent:self.labelNine] && self.labelEight.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+
+-(BOOL)checkTwoThree{
+    if([self checkXPresent:self.labelTwo] && [self checkXPresent:self.labelThree] && self.labelOne.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+-(BOOL)checkOneFour{
+    if([self checkXPresent:self.labelOne] && [self checkXPresent:self.labelFour] && self.labelSeven.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+-(BOOL)checkThreeSix{
+    if([self checkXPresent:self.labelThree] && [self checkXPresent:self.labelSix] && self.labelNine.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+-(BOOL)checkThreeNine{
+    if([self checkXPresent:self.labelThree] && [self checkXPresent:self.labelNine] && self.labelSix.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+-(BOOL)checkTwoLabels:(UILabel *)label1 Label2:(UILabel *)label2 emptyLabel:(UILabel *)label3{
+    if([self checkXPresent:label1] && [self checkXPresent:label2] && label3.userInteractionEnabled == NO)
+        return YES;
+    else
+        return NO;
+}
+
+
+
+
+-(void)skyNet:(UILabel *)labelPressed{ //COMPUTER MODE
+    self.isPlayerO = NO;
     
+    if(self.labelFive.userInteractionEnabled == NO){
+        self.labelFive.text = @"O";
+        self.labelFive.userInteractionEnabled = YES;}
+    else{
+        
+        if(labelPressed == self.labelOne){ //IF ONE IS PRESSED, COMPUTER RESPONDS.
+            
+            
+            if([self checkOneSeven]){
+                
+                self.labelFour.text = @"O";}
+                //[self labelPressed:self.labelFour];}
+            else if([self checkOneFour])
+                [self labelPressed:self.labelSeven];
+            else if([self checkOneThree])
+                [self labelPressed:self.labelTwo];
+            else if([self checkOneTwo])
+                [self labelPressed:self.labelThree];}
+        
+        if(labelPressed == self.labelTwo){ //TWO FOR COMPUTER
+            if([self checkOneTwo])
+                [self labelPressed:self.labelThree];
+            else if([self checkTwoThree])
+                [self labelPressed:self.labelOne];
+        }
+        
+//        if(labelPressed == self.labelThree){ //THREE FOR COMPUTER
+//            if([self checkOneThree])
+//                [self labelPressed:self.labelTwo];
+//            else if([self checkTwoThree])
+//                [self labelPressed:self.labelOne];
+//            else if([self checkThreeSix])
+//                [self labelPressed:self.labelNine];
+//            else if([self checkThreeNine])
+//                [self labelPressed:self.labelSix];
+//        }
+//        
+//        if(labelPressed == self.labelFour){
+//            if ([self checkTwoLabels:self.labelOne Label2:self.labelFour emptyLabel:self.labelSeven])
+//                [self labelPressed:self.labelSeven];
+//            else if([self checkTwoLabels:self.labelFour Label2:self.labelSeven emptyLabel:self.labelOne])
+//                [self labelPressed:self.labelOne];
+//        } //FOUR FOR COMPUTER
+//        
+//        if(labelPressed == self.labelSix){
+//            if([self checkTwoLabels:self.labelThree Label2:self.labelSix emptyLabel:self.labelNine])
+//                [self labelPressed:self.labelNine];
+//            else if([self checkTwoLabels:self.labelSix Label2:self.labelNine emptyLabel:self.labelOne])
+//                [self labelPressed:self.labelOne];
+//        }
+//        
+//        if(labelPressed == self.labelSeven){
+//            if([self checkOneSeven]){
+//                //self.labelFour.text = @"O";
+//                [self labelPressed:self.labelFour];}
+//            else if([self checkFourSeven])
+//                [self labelPressed:self.labelOne];
+//            else if([self checkSevenNine])
+//                [self labelPressed:self.labelEight];
+//            else if([self checkSevenEight])
+//                [self labelPressed:self.labelNine];
+//        }
+//        if(labelPressed == self.labelEight){
+//            if([self checkTwoLabels:self.labelSeven Label2:self.labelEight emptyLabel:self.labelNine])
+//                [self labelPressed:self.labelNine];
+//            else if([self checkTwoLabels:self.labelEight Label2:self.labelNine emptyLabel:self.labelSeven])
+//                [self labelPressed:self.labelSeven];
+//        }
+        if(labelPressed == self.labelNine){
+            if([self checkTwoLabels:self.labelEight Label2:self.labelNine emptyLabel:self.labelSeven])
+                [self labelPressed:self.labelSeven];
+            else if([self checkTwoLabels:self.labelSeven Label2:self.labelEight emptyLabel:self.labelNine])
+                [self labelPressed:self.labelNine];
+        }
+    }
 }
 
 -(void)xPanHandler:(UIPanGestureRecognizer *)xGesture{
@@ -162,9 +293,9 @@
     CGPoint oEndCenter;
     self.oLabel.center = oCenter;
     if(oGesture.state == UIGestureRecognizerStateEnded){
-         oEndCenter = oCenter;
-         self.isPlayerO = YES;
-         self.oLabel.center = self.originalOCenter;}
+        oEndCenter = oCenter;
+        self.isPlayerO = YES;
+        self.oLabel.center = self.originalOCenter;}
     [self findLabelUsingPoint:oEndCenter];
 }
 
@@ -199,11 +330,11 @@
     UIAlertAction *restartButton = [UIAlertAction actionWithTitle:@"RESTART?" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self resetAllValues];
     }];
-//    UIAlertAction *hi = [UIAlertAction action]
+    //    UIAlertAction *hi = [UIAlertAction action]
     [alert addAction:restartButton];
     [self presentViewController:alert animated:YES completion:nil];
-
-
+    
+    
 }
 
 - (void)resetAllValues{
@@ -236,25 +367,30 @@
     self.labelSeven.userInteractionEnabled = NO;
     self.labelEight.userInteractionEnabled = NO;
     self.labelNine.userInteractionEnabled = NO;
-
+    
 }
 
 - (void)labelPressed:(UILabel *)labelPressed{
-//if label 1-9 countains cgpoint(mouse) - change to x or o
-//if already x or o do nothing.
-//change bool value
+    //if label 1-9 countains cgpoint(mouse) - change to x or o
+    //if already x or o do nothing.
+    //change bool value
     
     //BOOL isPlayerX = YES;
     if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
-        self.countdown = 58;
+        self.countdown = 200;
         if(!self.isPlayerO){
             labelPressed.text = @"X";
             labelPressed.textColor = [UIColor blueColor];
-            self.whichPlayerLabel.text = @"Your Move Sir: O";}
-        else{labelPressed.text = @"O";
-            labelPressed.textColor = [UIColor redColor];
-            self.whichPlayerLabel.text = @"Your Move Sir: X";}
-        self.isPlayerO = !(self.isPlayerO);
+            self.whichPlayerLabel.text = @"Your Move Sir: O";
+            self.isPlayerO = !(self.isPlayerO);
+            [self skyNet:labelPressed];
+        }
+        else{}
+        
+        //        else{labelPressed.text = @"O";
+        //            labelPressed.textColor = [UIColor redColor];
+        //            self.whichPlayerLabel.text = @"Your Move Sir: X";}
+        
         if( [self hasPlayerWon:labelPressed]){
             NSString *playerWon = self.whichPlayerLabel.text;
             //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
@@ -296,7 +432,7 @@
         return YES;}
     else
         return NO;
-
+    
 }
 
 
@@ -325,7 +461,7 @@
 
 
 - (BOOL)hasPlayerWon:(UILabel *)labelPressed{
-        
+    
     
     //123 456 789 147 258 369 159 357
     
@@ -352,42 +488,42 @@
         return([self checkOneFiveNine] || [self checkThreeSixNine] || [self checkSevenEightNine]);}
     else
         return NO;
-//
-//    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
-//        return [self checkFourFiveSix];}
-//
-//    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
-//        return [self checkSevenEightNine];}
-//    
-//    else if (labelPressed == self.labelOne || labelPressed == self.labelFour || labelPressed == self.labelSeven){
-//        return [self checkOneFourSeven];}
-//    
-//    else if (labelPressed == self.labelTwo || labelPressed == self.labelFive || labelPressed == self.labelEight){
-//        return [self checkTwoFiveEight];}
-//    
-//    else if (labelPressed == self.labelThree || labelPressed == self.labelSix || labelPressed == self.labelNine){
-//        return [self checkThreeSixNine];}
-//    
-//    else if (labelPressed == self.labelOne || labelPressed == self.labelFive || labelPressed == self.labelNine){
-//        return [self checkOneFiveNine];}
-//    
-//    else if (labelPressed == self.labelThree || labelPressed == self.labelFive || labelPressed == self.labelSeven){
-//        return [self checkThreeFiveSeven];}
+    //
+    //    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
+    //        return [self checkFourFiveSix];}
+    //
+    //    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
+    //        return [self checkSevenEightNine];}
+    //
+    //    else if (labelPressed == self.labelOne || labelPressed == self.labelFour || labelPressed == self.labelSeven){
+    //        return [self checkOneFourSeven];}
+    //
+    //    else if (labelPressed == self.labelTwo || labelPressed == self.labelFive || labelPressed == self.labelEight){
+    //        return [self checkTwoFiveEight];}
+    //
+    //    else if (labelPressed == self.labelThree || labelPressed == self.labelSix || labelPressed == self.labelNine){
+    //        return [self checkThreeSixNine];}
+    //
+    //    else if (labelPressed == self.labelOne || labelPressed == self.labelFive || labelPressed == self.labelNine){
+    //        return [self checkOneFiveNine];}
+    //
+    //    else if (labelPressed == self.labelThree || labelPressed == self.labelFive || labelPressed == self.labelSeven){
+    //        return [self checkThreeFiveSeven];}
     
     
     
     
-
-//        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
-//            return YES;}
-//        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
-//            return YES;}
-//    else{
-//        return NO;}
+    
+    //        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
+    //            return YES;}
+    //        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
+    //            return YES;}
+    //    else{
+    //        return NO;}
 }
 - (IBAction)computerDecision:(UIButton *)sender {
-    [self skyNet:self.labelSeven];
-//    [self skyNet];
+    [self skyNet:self.labelThree];
+    //    [self skyNet];
 }
 
 - (IBAction)onLabelTapped:(UIGestureRecognizer *)sender {
