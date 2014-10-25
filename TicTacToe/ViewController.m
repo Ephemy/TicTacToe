@@ -37,6 +37,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    self.isPlayerO = NO;
     self.array = [[NSArray alloc]initWithObjects:self.labelOne, self.labelTwo, self.labelThree, self.labelFour, self.labelFive, self.labelSix, self.labelSeven, self.labelEight, self.labelNine, nil];
     
     [super viewDidLoad];
@@ -52,17 +53,17 @@
     self.oLabel.userInteractionEnabled = YES;
     
     
-//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
-//                                                      target:self
-//                                                    selector:@selector(timerHandler:)
-//                                                    userInfo:nil
-//                                                     repeats:YES];
+    //    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
+    //                                                      target:self
+    //                                                    selector:@selector(timerHandler:)
+    //                                                    userInfo:nil
+    //                                                     repeats:YES];
     
     self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
-                                                               target:self
-                                                             selector:@selector(countDown)
-                                                             userInfo:nil
-                                                              repeats:YES];
+                                                           target:self
+                                                         selector:@selector(countDown)
+                                                         userInfo:nil
+                                                          repeats:YES];
     self.countdown = kCountDownTime;
 }
 
@@ -78,16 +79,33 @@
 
 //reset the timer
 - (void)skipTurnHandler{
-    for(UILabel *selectLabel in self.array){
-        if(selectLabel.userInteractionEnabled == NO){
-            if([self computerSelectsLabel:selectLabel]){
-                break;}
+    if(self.isComputer){
+        for(UILabel *selectLabel in self.array){
+            if(selectLabel.userInteractionEnabled == NO){
+                if([self computerSelectsLabel:selectLabel]){
+                    break;}
+            }
         }
+        if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+            NSString *playerWon = @"O";
+            [self whoWon:playerWon];}
+    }
+    
+    if(!self.isComputer){
+        
+        self.isPlayerO = !self.isPlayerO;
+        
+        
+        
+        
+        
+        
         
     }
-    if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
-        NSString *playerWon = @"O";
-        [self whoWon:playerWon];}
+    
+    
+    
+    
 }
 
 -(void)timerHandler:(id)sender{
@@ -375,7 +393,7 @@
     //    UIAlertAction *hi = [UIAlertAction action]
     [alert addAction:restartButton];
     [self presentViewController:alert animated:YES completion:nil];
-
+    
 }
 
 - (void)whoWon:(NSString *)winner{//REFACTOR INTO CONSTANTS AND UPDATE AS WINNNER
@@ -435,57 +453,78 @@
     //change bool value
     
     //BOOL isPlayerX = YES;
-    if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
-        self.countdown = kCountDownTime;
-        if(!self.isPlayerO){
-            labelPressed.text = @"X";
-            labelPressed.textColor = [UIColor blueColor];
-            
-            
-            
-            //self.whichPlayerLabel.text = @"Your Move Sir: O";
-            self.isPlayerO = !(self.isPlayerO);
-            labelPressed.userInteractionEnabled = YES;//disable label
-            self.buttonCurrentlyPressed = labelPressed;
-            if( [self hasPlayerTied]){[self whoTied];}
-            if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
-                NSString *playerWon = @"X";
-                [self whoWon:playerWon];}
-            
-            if([self skyNet:labelPressed]){}
-            else{
-                for(UILabel *selectLabel in self.array){
-                    if(selectLabel.userInteractionEnabled == NO){
-                        if([self computerSelectsLabel:selectLabel]){
-                            break;}
+    if(self.isComputer){
+        if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
+            self.countdown = kCountDownTime;
+            if(!self.isPlayerO){
+                labelPressed.text = @"X";
+                labelPressed.textColor = [UIColor blueColor];
+                
+                
+                
+                //self.whichPlayerLabel.text = @"Your Move Sir: O";
+                self.isPlayerO = !(self.isPlayerO);
+                labelPressed.userInteractionEnabled = YES;//disable label
+                
+                self.buttonCurrentlyPressed = labelPressed;
+                if( [self hasPlayerTied]){[self whoTied];}
+                if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                    NSString *playerWon = @"X";
+                    [self whoWon:playerWon];}
+                
+                if([self skyNet:labelPressed]){}
+                else{
+                    for(UILabel *selectLabel in self.array){
+                        if(selectLabel.userInteractionEnabled == NO){
+                            if([self computerSelectsLabel:selectLabel]){
+                                break;}
+                        }
+                        
                     }
-                    
                 }
+                if( [self hasPlayerTied]){[self whoTied];}
+                if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                    NSString *playerWon = @"O";
+                    [self whoWon:playerWon];}
             }
-            if( [self hasPlayerTied]){[self whoTied];}
-            if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
-                NSString *playerWon = @"O";
-                [self whoWon:playerWon];}
         }
     }
     
-    
-    else{
-
-    
+    if(!self.isComputer){
+        if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
+            self.countdown = kCountDownTime;
+            if(!self.isPlayerO){
+                labelPressed.text = @"X";
+                labelPressed.textColor = [UIColor blueColor];
+                self.whichPlayerLabel.text = @"Your Move Sir: O";
+                labelPressed.userInteractionEnabled = YES;
+                self.isPlayerO = !self.isPlayerO;
+                self.buttonCurrentlyPressed = labelPressed;
+                if( [self hasPlayerTied]){[self whoTied];}
+                if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                    NSString *playerWon = @"X";
+                    [self whoWon:playerWon];}}
+            else if(self.isPlayerO){
+                
+                labelPressed.text = @"O";
+                labelPressed.textColor = [UIColor redColor];
+                self.whichPlayerLabel.text = @"Your Move Sir: X";
+                labelPressed.userInteractionEnabled = YES;
+                self.isPlayerO = !self.isPlayerO;
+                self.buttonCurrentlyPressed = labelPressed;
+                if( [self hasPlayerTied]){[self whoTied];}
+                if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                    NSString *playerWon = @"O";
+                    [self whoWon:playerWon];}
+            }
+        }
+        if( [self hasPlayerTied]){[self whoTied];}
+        if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+            NSString *playerWon = @"O";
+            [self whoWon:playerWon];}
     }
-    
-    //        else{labelPressed.text = @"O";
-    //            labelPressed.textColor = [UIColor redColor];
-    //            self.whichPlayerLabel.text = @"Your Move Sir: X";}
-    
-    
-    //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
-    
 }
-//taking turns
 
-//}
 
 - (BOOL)checkOneTwoThree{
     if([self.labelOne.text isEqualToString:self.labelTwo.text] && [self.labelOne.text isEqualToString:self.labelThree.text]){

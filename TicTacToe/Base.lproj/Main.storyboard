@@ -145,7 +145,7 @@
                 </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="yMg-UY-GNj"/>
             </objects>
-            <point key="canvasLocation" x="694" y="330"/>
+            <point key="canvasLocation" x="770" y="320"/>
         </scene>
         <!--LEARN TO PLAY!-->
         <scene sceneID="rmo-Cm-oiy">
@@ -182,7 +182,58 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOR-yK-jd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1077" y="331"/>
+            <point key="canvasLocation" x="1191" y="320"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="cFe-EI-qCd">
+            <objects>
+                <viewController id="nYX-QL-L1b" customClass="RootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ttK-5t-f7g"/>
+                        <viewControllerLayoutGuide type="bottom" id="lTk-Rc-1Gi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ml6-BV-xkz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to Tic Tac Toe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tr-Gl-TBU">
+                                <rect key="frame" x="69" y="126" width="182" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please Choose a Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEF-Sh-bMk">
+                                <rect key="frame" x="69" y="194" width="183" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mq6-ey-URu">
+                                <rect key="frame" x="75" y="283" width="171" height="30"/>
+                                <state key="normal" title="Play with another Person">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="push" id="pg2-t4-IbZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-C7-EPl">
+                                <rect key="frame" x="69" y="341" width="182" height="30"/>
+                                <state key="normal" title="Play against the Computer">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="push" id="G3o-GR-Yof"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="s9j-zl-Xpj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wgs-CM-Bjt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="338" y="320"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HGU-2e-T8J">
@@ -195,12 +246,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fPW-1N-vU6"/>
+                        <segue destination="nYX-QL-L1b" kind="relationship" relationship="rootViewController" id="BKC-kB-Fwl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xA9-dd-6rw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="162" y="330"/>
+            <point key="canvasLocation" x="-88" y="320"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -208,4 +259,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="pg2-t4-IbZ"/>
+    </inferredMetricsTieBreakers>
 </document>
