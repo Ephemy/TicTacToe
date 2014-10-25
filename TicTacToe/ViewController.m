@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #define kCountDownTime (int)100;
 
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelOne;
 @property (weak, nonatomic) IBOutlet UILabel *labelTwo;
@@ -51,14 +52,7 @@
     self.xLabel.userInteractionEnabled = YES;
     [self.oLabel addGestureRecognizer:oPan];
     self.oLabel.userInteractionEnabled = YES;
-    
-    
-    //    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
-    //                                                      target:self
-    //                                                    selector:@selector(timerHandler:)
-    //                                                    userInfo:nil
-    //                                                     repeats:YES];
-    
+
     self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
                                                            target:self
                                                          selector:@selector(countDown)
@@ -250,16 +244,18 @@
         if(usersLastMove == self.labelOne){ //IF ONE IS PRESSED, COMPUTER RESPONDS.
             
             
-            if([self checkOneSeven]){
+            if([self checkOneSeven])
                 return [self computerSelectsLabel:self.labelFour];
-            }
-            //[self labelPressed:self.labelFour];}
             else if([self checkOneFour])
                 return [self computerSelectsLabel:self.labelSeven];
             else if([self checkOneThree])
                 return [self computerSelectsLabel:self.labelTwo];
             else if([self checkOneTwo])
                 return [self computerSelectsLabel:self.labelThree];
+            else if([self checkTwoLabels:self.labelOne Label2:self.labelFive emptyLabel:self.labelNine])
+                return [self computerSelectsLabel:self.labelNine];
+            else if([self checkTwoLabels:self.labelOne Label2:self.labelNine emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;}
         
         
@@ -268,6 +264,10 @@
                 return [self computerSelectsLabel:self.labelThree];
             else if([self checkTwoThree])
                 return [self computerSelectsLabel:self.labelOne];
+            else if([self checkTwoLabels:self.labelTwo Label2:self.labelFive emptyLabel:self.labelEight])
+                return [self computerSelectsLabel:self.labelEight];
+            else if([self checkTwoLabels:self.labelTwo Label2:self.labelEight emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         }
         
@@ -280,6 +280,10 @@
                 return [self computerSelectsLabel:self.labelNine];
             else if([self checkThreeNine])
                 return [self computerSelectsLabel:self.labelSix];
+            else if([self checkTwoLabels:self.labelThree Label2:self.labelFive emptyLabel:self.labelSeven])
+                return [self computerSelectsLabel:self.labelSeven];
+            else if([self checkTwoLabels:self.labelThree Label2:self.labelSeven emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         }
         
@@ -288,6 +292,10 @@
                 return [self computerSelectsLabel:self.labelSeven];
             else if([self checkTwoLabels:self.labelFour Label2:self.labelSeven emptyLabel:self.labelOne])
                 return [self computerSelectsLabel:self.labelOne];
+            else if([self checkTwoLabels:self.labelFour Label2:self.labelFive emptyLabel:self.labelSix])
+                return [self computerSelectsLabel:self.labelSix];
+            else if([self checkTwoLabels:self.labelFour Label2:self.labelSix emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         } //FOUR FOR COMPUTER
         
@@ -296,6 +304,10 @@
                 return [self computerSelectsLabel:self.labelNine];
             else if([self checkTwoLabels:self.labelSix Label2:self.labelNine emptyLabel:self.labelOne])
                 return [self computerSelectsLabel:self.labelOne];
+            else if([self checkTwoLabels:self.labelFour Label2:self.labelSix emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
+            else if([self checkTwoLabels:self.labelSix Label2:self.labelFive emptyLabel:self.labelFour])
+                return [self computerSelectsLabel:self.labelFour];
             else return NO;
         }
         
@@ -309,6 +321,10 @@
                 return [self computerSelectsLabel:self.labelEight];
             else if([self checkSevenEight])
                 return [self computerSelectsLabel:self.labelNine];
+            else if([self checkTwoLabels:self.labelSeven Label2:self.labelFive emptyLabel:self.labelThree])
+                return [self computerSelectsLabel:self.labelThree];
+            else if([self checkTwoLabels:self.labelThree Label2:self.labelSeven emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         }
         else if(usersLastMove == self.labelEight){
@@ -316,6 +332,10 @@
                 return [self computerSelectsLabel:self.labelNine];
             else if([self checkTwoLabels:self.labelEight Label2:self.labelNine emptyLabel:self.labelSeven])
                 return [self computerSelectsLabel:self.labelSeven];
+            else if([self checkTwoLabels:self.labelEight Label2:self.labelFive emptyLabel:self.labelTwo])
+                return [self computerSelectsLabel:self.labelTwo];
+            else if([self checkTwoLabels:self.labelTwo Label2:self.labelEight emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         }
         else if(usersLastMove == self.labelNine){
@@ -327,6 +347,10 @@
                 return [self computerSelectsLabel:self.labelThree];
             else if([self checkTwoLabels:self.labelNine Label2:self.labelSeven emptyLabel:self.labelEight])
                 return [self computerSelectsLabel:self.labelEight];
+            else if([self checkTwoLabels:self.labelNine Label2:self.labelFive emptyLabel:self.labelOne])
+                return [self computerSelectsLabel:self.labelOne];
+            else if([self checkTwoLabels:self.labelOne Label2:self.labelNine emptyLabel:self.labelFive])
+                return [self computerSelectsLabel:self.labelFive];
             else return NO;
         }
         

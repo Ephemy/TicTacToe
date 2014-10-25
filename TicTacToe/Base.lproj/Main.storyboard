@@ -196,19 +196,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to Tic Tac Toe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tr-Gl-TBU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Tic Tac Toe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tr-Gl-TBU">
                                 <rect key="frame" x="69" y="126" width="182" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please Choose a Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEF-Sh-bMk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Choose a Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEF-Sh-bMk">
                                 <rect key="frame" x="69" y="194" width="183" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mq6-ey-URu">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mq6-ey-URu">
                                 <rect key="frame" x="75" y="283" width="171" height="30"/>
                                 <state key="normal" title="Play with another Person">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -217,7 +217,7 @@
                                     <segue destination="BYZ-38-t0r" kind="push" id="pg2-t4-IbZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-C7-EPl">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ4-C7-EPl">
                                 <rect key="frame" x="69" y="341" width="182" height="30"/>
                                 <state key="normal" title="Play against the Computer">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -228,6 +228,24 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="mq6-ey-URu" secondAttribute="trailing" constant="58" id="3nU-ok-BK2"/>
+                            <constraint firstItem="3Tr-Gl-TBU" firstAttribute="top" secondItem="ttK-5t-f7g" secondAttribute="bottom" constant="62" id="7eB-4T-Isw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3Tr-Gl-TBU" secondAttribute="trailing" constant="53" id="CXn-lc-oE0"/>
+                            <constraint firstItem="3Tr-Gl-TBU" firstAttribute="leading" secondItem="Ml6-BV-xkz" secondAttribute="leadingMargin" constant="53" id="Hga-eu-dg3"/>
+                            <constraint firstItem="mq6-ey-URu" firstAttribute="top" secondItem="wEF-Sh-bMk" secondAttribute="bottom" constant="68" id="Nis-Y0-zRp"/>
+                            <constraint firstItem="NQ4-C7-EPl" firstAttribute="leading" secondItem="Ml6-BV-xkz" secondAttribute="leadingMargin" constant="53" id="Rs2-UX-cpD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NQ4-C7-EPl" secondAttribute="trailing" constant="53" id="S2V-GF-3xE"/>
+                            <constraint firstItem="NQ4-C7-EPl" firstAttribute="top" secondItem="mq6-ey-URu" secondAttribute="bottom" constant="28" id="Vaj-05-LWd"/>
+                            <constraint firstItem="wEF-Sh-bMk" firstAttribute="leading" secondItem="Ml6-BV-xkz" secondAttribute="leadingMargin" constant="53" id="WM8-8I-VNH"/>
+                            <constraint firstItem="NQ4-C7-EPl" firstAttribute="top" secondItem="mq6-ey-URu" secondAttribute="bottom" constant="28" id="hgq-AG-2b7"/>
+                            <constraint firstItem="wEF-Sh-bMk" firstAttribute="top" secondItem="3Tr-Gl-TBU" secondAttribute="bottom" constant="47" id="pA8-tq-IoD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wEF-Sh-bMk" secondAttribute="trailing" constant="52" id="qz0-8K-Qn3"/>
+                            <constraint firstItem="lTk-Rc-1Gi" firstAttribute="top" secondItem="NQ4-C7-EPl" secondAttribute="bottom" constant="197" id="rbQ-cb-vOE"/>
+                            <constraint firstItem="mq6-ey-URu" firstAttribute="top" secondItem="wEF-Sh-bMk" secondAttribute="bottom" constant="68" id="rpT-UW-sQT"/>
+                            <constraint firstItem="wEF-Sh-bMk" firstAttribute="top" secondItem="3Tr-Gl-TBU" secondAttribute="bottom" constant="47" id="t6q-kM-ix5"/>
+                            <constraint firstItem="mq6-ey-URu" firstAttribute="leading" secondItem="Ml6-BV-xkz" secondAttribute="leadingMargin" constant="59" id="tl6-vI-dR7"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s9j-zl-Xpj"/>
                 </viewController>
