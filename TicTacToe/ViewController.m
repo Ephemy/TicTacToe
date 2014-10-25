@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#define kCountDownTime (int)100;
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelOne;
@@ -25,10 +26,11 @@
 @property CGPoint originalOCenter;
 @property (weak, nonatomic) IBOutlet UILabel *oLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-@property NSTimeInterval totalCountdownInterval;
+@property NSTimer *timerCountdown;
 @property int countdown;
 @property int round;
 @property NSArray *array;
+@property UILabel *buttonCurrentlyPressed;
 
 @end
 
@@ -50,35 +52,43 @@
     self.oLabel.userInteractionEnabled = YES;
     
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
-                                                      target:self
-                                                    selector:@selector(timerHandler:)
-                                                    userInfo:nil
-                                                     repeats:YES];
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:20.0
+//                                                      target:self
+//                                                    selector:@selector(timerHandler:)
+//                                                    userInfo:nil
+//                                                     repeats:YES];
     
-    NSTimer *timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
+    self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
                                                                target:self
                                                              selector:@selector(countDown)
                                                              userInfo:nil
                                                               repeats:YES];
-    self.countdown = 200;
+    self.countdown = kCountDownTime;
 }
 
 - (void)countDown{
     self.countdown--;
     self.timerLabel.text = [NSString stringWithFormat:@"%0.1f",self.countdown*.1];
-    //    if (self.countdown == 0) {
-    //        self.countdown = 10;
-    //   }
-    
+    if (self.countdown <= 0){
+        self.countdown = kCountDownTime;
+        self.isPlayerO = YES;
+        [self skipTurnHandler];
+    }
 }
-//    NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:startDate];
-//    self.timerLabel.text = [NSString stringWithFormat:@"%f",timer.timeInterval - elapsedTime];
-//    if(!timer){
-//
-//    }
 
 //reset the timer
+- (void)skipTurnHandler{
+    for(UILabel *selectLabel in self.array){
+        if(selectLabel.userInteractionEnabled == NO){
+            if([self computerSelectsLabel:selectLabel]){
+                break;}
+        }
+        
+    }
+    if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+        NSString *playerWon = @"O";
+        [self whoWon:playerWon];}
+}
 
 -(void)timerHandler:(id)sender{
     //@"Your Move Sir: " stringByAppendingString:
@@ -204,6 +214,7 @@
     selectedLabel.text = @"O";
     selectedLabel.userInteractionEnabled = YES;
     self.whichPlayerLabel.text = @"Your Move Sir: X";
+    self.buttonCurrentlyPressed = selectedLabel;
     return YES;
 }
 
@@ -215,7 +226,7 @@
         self.labelFive.text = @"O";
         self.labelFive.userInteractionEnabled = YES;
         return YES;
-        }
+    }
     else{
         
         if(usersLastMove == self.labelOne){ //IF ONE IS PRESSED, COMPUTER RESPONDS.
@@ -232,7 +243,7 @@
             else if([self checkOneTwo])
                 return [self computerSelectsLabel:self.labelThree];
             else return NO;}
-
+        
         
         else if(usersLastMove == self.labelTwo){ //TWO FOR COMPUTER
             if([self checkOneTwo])
@@ -355,8 +366,21 @@
         [self labelPressed:self.labelNine];}
 }
 
-- (void)whoWon:(NSString *)loser{//REFACTOR INTO CONSTANTS AND UPDATE AS WINNNER
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CONGRATULATIONS!!!!DINGDINGDING" message: [NSString stringWithFormat:@"%@ IS THE ANTI-SUPREME OVERLORD!! AKA... THE LOSERRRRRRR",loser] preferredStyle:UIAlertControllerStyleAlert];
+-(void)whoTied{
+    [self.timerCountdown invalidate];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"BORING......." message: [NSString stringWithFormat:@"THERE IS NO WINNER....."] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *restartButton = [UIAlertAction actionWithTitle:@"RESTART?" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self resetAllValues];
+    }];
+    //    UIAlertAction *hi = [UIAlertAction action]
+    [alert addAction:restartButton];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
+- (void)whoWon:(NSString *)winner{//REFACTOR INTO CONSTANTS AND UPDATE AS WINNNER
+    [self.timerCountdown invalidate];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"CONGRATULATIONS!!!!DINGDINGDING" message: [NSString stringWithFormat:@"%@ IS THE SUPREME OVERLORD!! AKA... THE WINNERRRRRRR",winner] preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *restartButton = [UIAlertAction actionWithTitle:@"RESTART?" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self resetAllValues];
     }];
@@ -397,6 +421,11 @@
     self.labelSeven.userInteractionEnabled = NO;
     self.labelEight.userInteractionEnabled = NO;
     self.labelNine.userInteractionEnabled = NO;
+    self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
+                                                           target:self
+                                                         selector:@selector(countDown)
+                                                         userInfo:nil
+                                                          repeats:YES];
     
 }
 
@@ -407,35 +436,54 @@
     
     //BOOL isPlayerX = YES;
     if(!labelPressed.userInteractionEnabled){//check if label has been pressed before
-        self.countdown = 200;
+        self.countdown = kCountDownTime;
         if(!self.isPlayerO){
             labelPressed.text = @"X";
             labelPressed.textColor = [UIColor blueColor];
             
+            
+            
             //self.whichPlayerLabel.text = @"Your Move Sir: O";
             self.isPlayerO = !(self.isPlayerO);
             labelPressed.userInteractionEnabled = YES;//disable label
+            self.buttonCurrentlyPressed = labelPressed;
+            if( [self hasPlayerTied]){[self whoTied];}
+            if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                NSString *playerWon = @"X";
+                [self whoWon:playerWon];}
+            
             if([self skyNet:labelPressed]){}
-                else{
-                    for(UILabel *selectLabel in self.array){
-                        if(selectLabel.userInteractionEnabled == NO){
-                            if([self computerSelectsLabel:selectLabel]){
-                                break;};}
+            else{
+                for(UILabel *selectLabel in self.array){
+                    if(selectLabel.userInteractionEnabled == NO){
+                        if([self computerSelectsLabel:selectLabel]){
+                            break;}
                     }
+                    
                 }
+            }
+            if( [self hasPlayerTied]){[self whoTied];}
+            if( [self hasPlayerWon:self.buttonCurrentlyPressed]){
+                NSString *playerWon = @"O";
+                [self whoWon:playerWon];}
         }
-        else{}
-        
-        //        else{labelPressed.text = @"O";
-        //            labelPressed.textColor = [UIColor redColor];
-        //            self.whichPlayerLabel.text = @"Your Move Sir: X";}
-        
-        //        if( [self hasPlayerWon:labelPressed]){
-        //            NSString *playerWon = self.whichPlayerLabel.text;
-        //            //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
-        //            [self whoWon:playerWon];
     }
-}//taking turns
+    
+    
+    else{
+
+    
+    }
+    
+    //        else{labelPressed.text = @"O";
+    //            labelPressed.textColor = [UIColor redColor];
+    //            self.whichPlayerLabel.text = @"Your Move Sir: X";}
+    
+    
+    //self.whichPlayerLabel.text = [self.whichPlayerLabel.text stringByAppendingString:@" LOSESSSSSSSSS!"];
+    
+}
+//taking turns
 
 //}
 
@@ -497,7 +545,13 @@
         return NO;
 }
 
-
+- (BOOL)hasPlayerTied{
+    for(UILabel *label in self.array){
+        if(label.userInteractionEnabled == NO)
+            return NO;
+    }
+    return YES;
+}
 - (BOOL)hasPlayerWon:(UILabel *)labelPressed{
     
     
