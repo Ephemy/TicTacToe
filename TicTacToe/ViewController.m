@@ -52,7 +52,7 @@
     self.xLabel.userInteractionEnabled = YES;
     [self.oLabel addGestureRecognizer:oPan];
     self.oLabel.userInteractionEnabled = YES;
-
+    
     self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
                                                            target:self
                                                          selector:@selector(countDown)
@@ -88,13 +88,7 @@
     if(!self.isComputer){
         
         self.isPlayerO = !self.isPlayerO;
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     
@@ -124,6 +118,91 @@
     else
         return NO;
 }
+
+-(BOOL)checkOPresent:(UILabel *)checkLabel{
+    if([checkLabel.text isEqualToString:@"O"]){
+        return YES;}
+    else
+        return NO;
+}
+
+-(BOOL)checkAllOPresent{
+    if ([self checkTwoLabels:self.labelOne Label2:self.labelSeven emptyLabel:self.labelFour])
+        return [self computerSelectsLabel:self.labelFour];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelThree emptyLabel:self.labelTwo])
+        return [self computerSelectsLabel:self.labelTwo];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelTwo emptyLabel:self.labelThree])
+        return [self computerSelectsLabel:self.labelThree];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelFive emptyLabel:self.labelNine])
+        return [self computerSelectsLabel:self.labelNine];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelNine emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelTwo Label2:self.labelThree emptyLabel:self.labelOne])
+        return [self computerSelectsLabel:self.labelOne];
+    else if([self checkTwoLabels:self.labelTwo Label2:self.labelFive emptyLabel:self.labelEight])
+        return [self computerSelectsLabel:self.labelEight];
+    else if([self checkTwoLabels:self.labelTwo Label2:self.labelEight emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelThree Label2:self.labelNine emptyLabel:self.labelSix])
+        return [self computerSelectsLabel:self.labelSix];
+    else if([self checkTwoLabels:self.labelThree Label2:self.labelFive emptyLabel:self.labelSeven])
+        return [self computerSelectsLabel:self.labelSeven];
+    else if([self checkTwoLabels:self.labelThree Label2:self.labelSeven emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if ([self checkTwoLabels:self.labelOne Label2:self.labelFour emptyLabel:self.labelSeven])
+        return [self computerSelectsLabel:self.labelSeven];
+    else if([self checkTwoLabels:self.labelFour Label2:self.labelSeven emptyLabel:self.labelOne])
+        return [self computerSelectsLabel:self.labelOne];
+    else if([self checkTwoLabels:self.labelFour Label2:self.labelFive emptyLabel:self.labelSix])
+        return [self computerSelectsLabel:self.labelSix];
+    else if([self checkTwoLabels:self.labelFour Label2:self.labelSix emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelThree Label2:self.labelSix emptyLabel:self.labelNine])
+        return [self computerSelectsLabel:self.labelNine];
+    else if([self checkTwoLabels:self.labelSix Label2:self.labelNine emptyLabel:self.labelOne])
+        return [self computerSelectsLabel:self.labelOne];
+    else if([self checkTwoLabels:self.labelFour Label2:self.labelSix emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelSix Label2:self.labelFive emptyLabel:self.labelFour])
+        return [self computerSelectsLabel:self.labelFour];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelSeven emptyLabel:self.labelFour]){
+        return [self computerSelectsLabel:self.labelFour];}
+    else if([self checkTwoLabels:self.labelFour Label2:self.labelSeven emptyLabel:self.labelOne])
+        return [self computerSelectsLabel:self.labelOne];
+    else if([self checkTwoLabels:self.labelSeven Label2:self.labelNine emptyLabel:self.labelEight])
+        return [self computerSelectsLabel:self.labelEight];
+    else if([self checkTwoLabels:self.labelSeven Label2:self.labelEight emptyLabel:self.labelNine])
+        return [self computerSelectsLabel:self.labelNine];
+    else if([self checkTwoLabels:self.labelSeven Label2:self.labelFive emptyLabel:self.labelThree])
+        return [self computerSelectsLabel:self.labelThree];
+    else if([self checkTwoLabels:self.labelThree Label2:self.labelSeven emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelSeven Label2:self.labelEight emptyLabel:self.labelNine])
+        return [self computerSelectsLabel:self.labelNine];
+    else if([self checkTwoLabels:self.labelEight Label2:self.labelNine emptyLabel:self.labelSeven])
+        return [self computerSelectsLabel:self.labelSeven];
+    else if([self checkTwoLabels:self.labelEight Label2:self.labelFive emptyLabel:self.labelTwo])
+        return [self computerSelectsLabel:self.labelTwo];
+    else if([self checkTwoLabels:self.labelTwo Label2:self.labelEight emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelEight Label2:self.labelNine emptyLabel:self.labelSeven])
+        return [self computerSelectsLabel:self.labelSeven];
+    else if([self checkTwoLabels:self.labelNine Label2:self.labelThree emptyLabel:self.labelSix])
+        return [self computerSelectsLabel:self.labelSix];
+    else if([self checkTwoLabels:self.labelNine Label2:self.labelSix emptyLabel:self.labelThree])
+        return [self computerSelectsLabel:self.labelThree];
+    else if([self checkTwoLabels:self.labelNine Label2:self.labelSeven emptyLabel:self.labelEight])
+        return [self computerSelectsLabel:self.labelEight];
+    else if([self checkTwoLabels:self.labelNine Label2:self.labelFive emptyLabel:self.labelOne])
+        return [self computerSelectsLabel:self.labelOne];
+    else if([self checkTwoLabels:self.labelOne Label2:self.labelNine emptyLabel:self.labelFive])
+        return [self computerSelectsLabel:self.labelFive];
+    else if([self checkTwoLabels:self.labelFive Label2:self.labelNine emptyLabel:self.labelSeven])
+        return [self computerSelectsLabel:self.labelSeven];
+    else return NO;
+}
+
+
 -(BOOL)checkOneThree{
     //check opposite players code only -> X?
     if([self checkXPresent:self.labelOne]  && [self checkXPresent:self.labelThree]
@@ -140,21 +219,6 @@
         return YES;
     else
         return NO;}
-//-(BOOL)checkTwoThree{
-//    if([self checkXPresent:self.labelTwo] && [self checkXPresent:self.labelThree])
-//        return YES;
-//    else
-//        return NO;}
-//-(BOOL)checkThreeEight{
-//    if([self checkXPresent:self.labelThree] && [self checkXPresent:self.labelEight])
-//        return YES;
-//    else
-//        return NO;}
-//-(BOOL)checkThreeNine{
-//    if([self checkXPresent:self.labelThree] && [self checkXPresent:self.labelNine])
-//        return YES;
-//    else
-//        return NO;}
 
 -(BOOL)checkOneSeven{
     if([self checkXPresent:self.labelOne] && [self checkXPresent:self.labelSeven] && self.labelFour.userInteractionEnabled == NO)
@@ -175,7 +239,6 @@
         return YES;
     else
         return NO;
-    //-(void)skyNet{
 }
 
 -(BOOL)checkSevenNine{
@@ -217,6 +280,8 @@
 -(BOOL)checkTwoLabels:(UILabel *)label1 Label2:(UILabel *)label2 emptyLabel:(UILabel *)label3{
     if([self checkXPresent:label1] && [self checkXPresent:label2] && label3.userInteractionEnabled == NO)
         return YES;
+    else if([self checkOPresent:label1] && [self checkOPresent:label2] && label3.userInteractionEnabled == NO)
+        return YES;
     else
         return NO;
 }
@@ -224,11 +289,23 @@
 
 -(BOOL)computerSelectsLabel: (UILabel *)selectedLabel{
     selectedLabel.text = @"O";
+    selectedLabel.textColor = [UIColor redColor];
     selectedLabel.userInteractionEnabled = YES;
     self.whichPlayerLabel.text = @"Your Move Sir: X";
     self.buttonCurrentlyPressed = selectedLabel;
     return YES;
 }
+
+-(BOOL)computerSelectsLabelOffense: (UILabel *)selectedLabel{
+    selectedLabel.text = @"X";
+    
+    selectedLabel.userInteractionEnabled = YES;
+    self.whichPlayerLabel.text = @"Your Move Sir: X";
+    self.buttonCurrentlyPressed = selectedLabel;
+    return YES;
+}
+
+
 
 -(BOOL)skyNet:(UILabel *)usersLastMove{ //COMPUTER MODE
     self.isPlayerO = NO;
@@ -236,12 +313,15 @@
     //COMPUTER AUTOMATICALLY TAKES CENTER SPOT IF AVAIL
     if(self.labelFive.userInteractionEnabled == NO){
         self.labelFive.text = @"O";
+        self.labelFive.textColor = [UIColor redColor];
         self.labelFive.userInteractionEnabled = YES;
         return YES;
     }
     else{
+        if ([self checkAllOPresent])
+            return YES;
         
-        if(usersLastMove == self.labelOne){ //IF ONE IS PRESSED, COMPUTER RESPONDS.
+        else if(usersLastMove == self.labelOne){ //IF ONE IS PRESSED, COMPUTER RESPONDS.
             
             
             if([self checkOneSeven])
@@ -433,36 +513,13 @@
     
 }
 
-- (void)resetAllValues{
+- (void)resetAllValues{ //RESETS TO DEFAULT
     self.whichPlayerLabel.text = [NSString stringWithFormat:@"Round: %d....Begin!!", self.round];
     self.round++;
-    self.labelOne.text = @"Label";
-    self.labelTwo.text = @"Label";
-    self.labelThree.text = @"Label";
-    self.labelFour.text = @"Label";
-    self.labelFive.text = @"Label";
-    self.labelSix.text = @"Label";
-    self.labelSeven.text = @"Label";
-    self.labelEight.text = @"Label";
-    self.labelNine.text = @"Label";
-    self.labelOne.textColor = [UIColor blackColor];
-    self.labelTwo.textColor = [UIColor blackColor];
-    self.labelThree.textColor = [UIColor blackColor];
-    self.labelFour.textColor = [UIColor blackColor];
-    self.labelFive.textColor = [UIColor blackColor];
-    self.labelSix.textColor = [UIColor blackColor];
-    self.labelSeven.textColor = [UIColor blackColor];
-    self.labelEight.textColor = [UIColor blackColor];
-    self.labelNine.textColor = [UIColor blackColor];
-    self.labelOne.userInteractionEnabled = NO;
-    self.labelTwo.userInteractionEnabled = NO;
-    self.labelThree.userInteractionEnabled = NO;
-    self.labelFour.userInteractionEnabled = NO;
-    self.labelFive.userInteractionEnabled = NO;
-    self.labelSix.userInteractionEnabled = NO;
-    self.labelSeven.userInteractionEnabled = NO;
-    self.labelEight.userInteractionEnabled = NO;
-    self.labelNine.userInteractionEnabled = NO;
+    for(UILabel *label in self.array){
+        label.text = @"Label";
+        label.textColor = [UIColor blackColor];
+        label.userInteractionEnabled = NO;}
     self.timerCountdown = [NSTimer scheduledTimerWithTimeInterval:.1
                                                            target:self
                                                          selector:@selector(countDown)
@@ -643,38 +700,7 @@
         return([self checkOneFiveNine] || [self checkThreeSixNine] || [self checkSevenEightNine]);}
     else
         return NO;
-    //
-    //    else if (labelPressed == self.labelFour || labelPressed == self.labelFive || labelPressed == self.labelSix){
-    //        return [self checkFourFiveSix];}
-    //
-    //    else if (labelPressed == self.labelSeven || labelPressed == self.labelEight || labelPressed == self.labelNine){
-    //        return [self checkSevenEightNine];}
-    //
-    //    else if (labelPressed == self.labelOne || labelPressed == self.labelFour || labelPressed == self.labelSeven){
-    //        return [self checkOneFourSeven];}
-    //
-    //    else if (labelPressed == self.labelTwo || labelPressed == self.labelFive || labelPressed == self.labelEight){
-    //        return [self checkTwoFiveEight];}
-    //
-    //    else if (labelPressed == self.labelThree || labelPressed == self.labelSix || labelPressed == self.labelNine){
-    //        return [self checkThreeSixNine];}
-    //
-    //    else if (labelPressed == self.labelOne || labelPressed == self.labelFive || labelPressed == self.labelNine){
-    //        return [self checkOneFiveNine];}
-    //
-    //    else if (labelPressed == self.labelThree || labelPressed == self.labelFive || labelPressed == self.labelSeven){
-    //        return [self checkThreeFiveSeven];}
-    
-    
-    
-    
-    
-    //        if([self.labelOne.text isEqualToString:self.labelFour.text] && [self.labelOne.text isEqualToString:self.labelSeven.text]){
-    //            return YES;}
-    //        else if([self.labelOne.text isEqualToString:self.labelFive.text] && [self.labelOne.text isEqualToString:self.labelNine.text]){
-    //            return YES;}
-    //    else{
-    //        return NO;}
+
 }
 - (IBAction)computerDecision:(UIButton *)sender {
     [self skyNet:self.labelThree];
